@@ -40,8 +40,8 @@ bool CmsException::reportGeneral( clang::ento::PathDiagnosticLocation const& pat
 	  clang::SourceLocation SL = path.asLocation();
 	  if ( SL.isMacroID() ) {return false;}	
 
-          const SourceManager &SM = BR.getSourceManager();
-	  PresumedLoc PL = SM.getPresumedLoc(SL);
+          const clang::SourceManager &SM = BR.getSourceManager();
+	  clang::PresumedLoc PL = SM.getPresumedLoc(SL);
 	  llvm::StringRef FN = llvm::StringRef((PL.getFilename()));
 	  size_t found = 0;
 	  found += FN.count("xr.cc");
@@ -56,21 +56,21 @@ bool CmsException::reportGeneral( clang::ento::PathDiagnosticLocation const& pat
 }
 
 
-bool CmsException::reportGlobalStatic( QualType const& t,
+bool CmsException::reportGlobalStatic( clang::QualType const& t,
 			clang::ento::PathDiagnosticLocation const& path,
 			clang::ento::BugReporter & BR  ) const
 {
 	return reportGeneral ( path, BR );
 }
 
-bool CmsException::reportMutableMember( QualType const& t,
+bool CmsException::reportMutableMember( clang::QualType const& t,
 			clang::ento::PathDiagnosticLocation const& path,
 			clang::ento::BugReporter & BR  ) const
 {
 	return reportGeneral ( path, BR );
 }
 
-bool CmsException::reportGlobalStaticForType( QualType const& t,
+bool CmsException::reportGlobalStaticForType( clang::QualType const& t,
 				clang::ento::PathDiagnosticLocation const& path,
 				clang::ento::BugReporter & BR ) const
 {/*	not used yet
